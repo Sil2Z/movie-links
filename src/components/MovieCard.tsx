@@ -1,8 +1,9 @@
 'use client'
 
 import { Movie } from '@/lib/supabase'
-import { Star, ExternalLink, Trash2, Clock, Eye } from 'lucide-react'
+import { Star, ExternalLink, Trash2, Clock, Eye, Edit2 } from 'lucide-react'
 import { useState } from 'react'
+import Link from 'next/link'
 
 interface MovieCardProps {
   movie: Movie
@@ -132,14 +133,23 @@ export default function MovieCard({ movie, onDelete, onRate }: MovieCardProps) {
             <span>ดูเลย</span>
           </a>
           
-          {onDelete && (
-            <button
-              onClick={() => onDelete(movie.id)}
-              className="group/delete flex items-center space-x-1 text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50"
+          <div className="flex items-center space-x-2">
+            <Link
+              href={`/edit/${movie.id}`}
+              className="group/edit flex items-center space-x-1 text-gray-400 hover:text-blue-500 transition-colors p-2 rounded-lg hover:bg-blue-50"
             >
-              <Trash2 className="w-4 h-4 group-hover/delete:scale-110 transition-transform" />
-            </button>
-          )}
+              <Edit2 className="w-4 h-4 group-hover/edit:scale-110 transition-transform" />
+            </Link>
+            
+            {onDelete && (
+              <button
+                onClick={() => onDelete(movie.id)}
+                className="group/delete flex items-center space-x-1 text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50"
+              >
+                <Trash2 className="w-4 h-4 group-hover/delete:scale-110 transition-transform" />
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Footer info */}
